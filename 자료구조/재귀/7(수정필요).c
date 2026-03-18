@@ -17,5 +17,5 @@ int main() {
 	scanf_s("%s", str, (int)sizeof(str));
 	scanf_s(" %c", &c, sizeof(c));
 
-	printf("%d\n", rCountChar(str, c, sizeof(c)));
+	printf("%d\n", rCountChar(str, c, sizeof(c)/sizeof(char));
 }
