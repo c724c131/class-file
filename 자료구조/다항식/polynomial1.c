@@ -16,9 +16,18 @@ Poly add(Poly a, Poly b) {
 
 	for (int i = 0;i <= c.degree;i++) {
 		c.coef[i] = ((i <= a.degree) ? a.coef[i] : 0) + 
-			        ((i <= b.degree) ? b.coef[i] : 0);
-	}
+			        ((i <= b.degree) ? b.coef[i] : 0);}
+	
 	return c;
+}
+
+int eval(Poly p, int x) {
+	int result = p.coef[0];
+
+	for (int i = 1; i <= p.degree;i++) {
+		result += p.coef[i] * pow(x, i);
+	}
+	return result;
 }
 
 void print(Poly p, const char* str) {
@@ -30,7 +39,7 @@ void print(Poly p, const char* str) {
 }
 
 int main() {
-	Poly a, b ,result;
+	Poly a, b ,c;
 	printf("차수를 입력하세요(a b) : ");
 	scanf_s("%d %d", &a.degree, &b.degree);
 
@@ -45,9 +54,9 @@ int main() {
 	print(a, "A =");
 	print(b, "B =");
 
-	result = add(a, b);
+	c = add(a, b);
 
-	print(result, "result =");
+	print(c, "result =");
 
 	return 0;
 }
