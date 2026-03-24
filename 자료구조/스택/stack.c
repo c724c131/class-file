@@ -62,7 +62,12 @@ int main() {
 	push(&S, 'B');
 	push(&S, 'C');
 	push(&S, 'D');
-	print(&S);
+	print(&S); getchar();
+
+	printf("After pop() : %c\n", pop(&S));
+	print(&S); getchar();
+	printf("After peek() : %c\n", peek(&S));
+	print(&S); getchar();
 
 	return 0;
 }
