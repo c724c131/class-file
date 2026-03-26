@@ -66,7 +66,7 @@ int check_matching(char str[]) {
 	for (int i = 0; i < n;i++) {
 		ch_str = str[i];
 
-		if(ch_str == '(' || ch_str == '{' || ch_str == '[')
+		if (ch_str == '(' || ch_str == '{' || ch_str == '[')
 			push(&S, ch_str);
 		else if (ch_str == ')' || ch_str == '}' || ch_str == ']') {
 			if (isEmpty(&S))
@@ -75,13 +75,13 @@ int check_matching(char str[]) {
 			else {
 				ch_stack = pop(&S);
 				if ((ch_stack == '(' && ch_str != ')')
-				 || (ch_stack == '{' && ch_str != '}')
-				 || (ch_stack == '[' && ch_str != ']'))
+					|| (ch_stack == '{' && ch_str != '}')
+					|| (ch_stack == '[' && ch_str != ']'))
 					return 3;
-			}
-		}
-	}
-	if (isEmpty(&S) != 0)
+			};
+		};
+	};
+	if (isEmpty(&S) != 1)
 		return 1;
 
 	return 0; ///성공
@@ -89,10 +89,11 @@ int check_matching(char str[]) {
 
 int main() {
 	char str[N];
-	int result = check_matching(str);
 
 	printf("Input : ");
 	fgets(str, N, stdin);
+
+	int result = check_matching(str);
 
 	if (result == 0)
 		printf("Check Passed,\n");
