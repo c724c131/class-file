@@ -85,7 +85,7 @@ void infixToPostfix(char expr[]) {//중위수식을 후위수식으로
 			push(&S, c);
 
 		else if (c == ')') {
-			op = pop(&S); //스택에서 꺼내기
+				 //스택에서 꺼내기
 			while (op != '(') {// 중위수식을 정상적으로 넣었다면 '(' 만날때까지 반복
 				printf("%c", op);
 				// '(' 아닌 것은 바로 출력, 스택에 들어 올때 연산 우선순위를 맞춰 들어오기때문에 순서가 맞는다.
@@ -98,21 +98,10 @@ void infixToPostfix(char expr[]) {//중위수식을 후위수식으로
 				i++; //&&와 ||는 두 글자니까 문자열 한 칸 더 진행
 			while (!isEmpty(&S)) {//빈 스택 확인
 				op = peek(&S);
-				if (prec(c) <= prec(op)) {//연산 우선 순위가 높으면 먼저 계산 -> 먼저 출력
+				if (prec(c) <= prec(op)) {
 					if (op == '&' || op == '|'){
 						printf("%c", op);}//&&와 ||은 한글자씩 더 출력
-
-					if (op == '~') {
-						pop(&S);
-						printf('-');
-					}
-					else if (op == '#') {
-						pop(&S);
-						printf('+');
-					}
-					else {
-						printf("%c", pop(&S));
-					}
+					printf("%c", pop(&S));//연산 우선 순위가 높으면 먼저 계산 -> 먼저 출력
 				}
 				else
 					break;
@@ -124,15 +113,7 @@ void infixToPostfix(char expr[]) {//중위수식을 후위수식으로
 		char ch = pop(&S);
 		if (ch == '&' || ch == '|') //&&나 ||는 두개 출력
 			printf("%c", ch);
-		if (ch == '~') {
-			printf('-');
-		}
-		else if (ch == '#') {
-			printf('+');
-		}
-		else {
-			printf("%c", ch);
-		}
+		printf("%c", ch);
 	}
 	printf("\n");
 }
