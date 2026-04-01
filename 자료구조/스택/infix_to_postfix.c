@@ -104,9 +104,12 @@ void infixToPostfix(char expr[]) {
 
 		if (isdigit(c))
 			printf("%c ", c);
+			
 		else if (c == '(')
 			push(&S, c);
+			
 		else if (c == ')') {
+			op = pop(&S);
 			while (op != '(') {
 				printf("%c ", op);
 				op = pop(&S);
