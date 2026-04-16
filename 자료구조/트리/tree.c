@@ -43,6 +43,51 @@ void postOrder(Treenode* root) {
 		printf("[%c]", root->data);
 	}
 }
+
+int nodeCount(Treenode* root) {
+	if (root == NULL)
+		return 0;
+	else
+		return 1 + nodeCount(root->left) + nodeCount(root->right);
+}
+
+int isExternal(Treenode* root) {
+	return (root->left == NULL && root->right == NULL);
+}
+
+int leafNodeCount(Treenode* root) {
+	if (root == NULL)
+		return 0;
+	else {
+		if (isExternal(root))
+			return 1;
+		else
+			return leafNodeCount(root->left) + leafNodeCount(root->left);
+	}
+}
+
+#define MAX(a, b) ((a) > (b) ? (a) : (b))
+
+int height(Treenode* root) {
+	if (!root) {
+		return 0;
+	}
+	else {
+		return 1 + MAX(height(root->left), height(root->right));
+	}
+}
+
+void treeReverse(Treenode* root) {
+	if (root) {
+		Treenode* tmp = root->left;
+		root->left = root->right;
+		root->right = tmp;
+	}
+
+	treeReverse(root->left);
+	treeReverse(root->right);
+}
+
 int main(void) {
 	
 	//트리를 만들려면 노드를 아래에서 부터 만들어야 한다.
@@ -57,6 +102,9 @@ int main(void) {
 	printf("In   : "); inOrder(N1);printf("\n");
 	printf("Post : "); postOrder(N1);printf("\n\n");
 
+	printf("Node Count : %d\n", nodeCount(N1));
+	printf("Leaf Count : %d\n", leafNodeCount(N1));
+	printf("Height : %d\n", height(N1));
 	return 0;
 }
 
