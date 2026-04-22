@@ -29,6 +29,36 @@ int isEmpty(ListType* L) {
     return L->size == 0;
 }
 
+void insertFirst(ListType* L, element e) {
+    Node* node = makeNode(e);
+
+    if (isEmpty(L)) {
+        L->tail = node;
+        L->tail->next = node;
+    }
+    else {
+        node->next = L->tail->next;
+        L->tail->next = node;
+    }
+
+    L->size++;
+}
+
+void insertLast(ListType* L, element e) {
+    Node* node = makeNode(e);
+
+    if (isEmpty(L)) {
+        L->tail = node;
+        L->tail->next = node;
+    }
+    else {
+        node->next = L->tail->next;
+        L->tail->next = node;
+        L->tail = node;
+    }
+
+    L->size++;
+}
 
 void insert(ListType* L, element e, int pos) {
     if (pos <= 0 || pos > L->size + 1) {
@@ -41,7 +71,13 @@ void insert(ListType* L, element e, int pos) {
         return;
     }
 
-    Node* p = L->head;
+    if (pos == L->size + 1) {
+        insertLast(L, e);
+        return;
+    }
+
+    Node* p = L->tail->next;
+
     for (int i = 1; i < pos - 1; i++) {
         p = p->next;
     }
@@ -64,65 +100,63 @@ element delete(ListType* L, int pos) {
         return 0;
     }
 
-    Node* p = L->head;
+    Node* removed;
+    element data;
 
     if (pos == 1) {
-        element data = p->data;
-        L->head = p->next;
-        free(p);
+        removed = L->tail->next;
+        data = removed->data;
+
+        if (L->size == 1) {
+            L->tail = NULL;
+        }
+        else {
+            L->tail->next = removed->next;
+        }
+
+        free(removed);
         L->size--;
         return data;
     }
+
+    Node* p = L->tail->next;
 
     for (int i = 1; i < pos - 1; i++) {
         p = p->next;
     }
 
-    Node* temp = p->next;
-    element data = temp->data;
+    removed = p->next;
+    data = removed->data;
 
-    p->next = temp->next;
-    free(temp);
+    p->next = removed->next;
+
+    if (removed == L->tail) {
+        L->tail = p;
+    }
+
+    free(removed);
     L->size--;
 
     return data;
 }
 
-void insertFirst(ListType* L, element e) {
-    Node* node = makeNode(e);
-
-    if (isEmpty(L)) {
-        L->tail = node;
-        L->tail->next = node;
-    }
-    else {
-        node->next = L->tail->next;
-        L->tail->next = node;
-    }
-    L->size++;
-}
-
-void insertLast(ListType* L, element e) {
-    Node* node = makeNode(e);
-
-    if (isEmpty(L)) {
-        L->tail = node;
-        L->tail->next = node;
-    }
-    else {
-        node->next = L->tail->next;
-        L->tail->next = node;
-        L->tail = node;
-    }
-    L->size++;
-}
-
 void print(ListType* L) {
-    for (Node* p = L->head; p != NULL; p = p->next) {
-        printf("[%c]", p->data);
-        if (p->next != NULL)
-            printf("->");
+    if (isEmpty(L)) {
+        printf("Empty List\n");
+        return;
     }
+
+    Node* p = L->tail->next;
+
+    for (int i = 0; i < L->size; i++) {
+        printf("[%c]", p->data);
+
+        if (i < L->size - 1)
+            printf("->");
+
+        p = p->next;
+    }
+
     printf("\n");
 }
 
