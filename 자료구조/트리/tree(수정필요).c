@@ -127,3 +127,17 @@ int main(void) {
 
     return 0;
 }
+
+//        A
+//      /   |
+//     B     C
+//   /   | 
+//  D    E
+// 	    /
+//	   F
+
+// L V R
+// 
+// V L R 전위 pre order
+// L V R 중위 in order
+// L R V 후위 post order : D F E B C A
