@@ -15,3 +15,5 @@ public class AnonyTest2 {
         dog.sound();
     }
 }
+
+///애니멀 클래스 생성자 초기화 super() 사용
