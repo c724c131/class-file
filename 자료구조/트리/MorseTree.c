@@ -70,9 +70,49 @@ void preOrder(TreeNode* root) {
     }
 }
 
+char* encode(char ch) {
+    if (ch >= 'a' && ch <= 'z')
+        ch -= 32;
+
+    if (ch < 'A' || ch > 'Z')
+        return "";
+
+    return table[ch - 'A'].code;
+}
+
+char decode(TreeNode* root, char* code) {
+    TreeNode* p = root;
+
+    for (int i = 0; code[i] != '\0';i++) {
+
+        if (code[i] == '.')
+            p = p->left;
+        else if (code[i] == '-')
+            p = p->right;
+        else
+            return '?';
+        if (p == NULL)
+            return '?';
+
+    }
+    return p->alpha;
+}
+
 int main(void) {
     TreeNode* root = makeMorseTree();
     preOrder(root);printf("\n");
 
+    char str[20];
+    char code[100] = "";
+
+    printf("Input a  word : ");
+    scanf_s("%19s", str);
+    int n = strlen(str);
+
+    for (int i = 0;i < n;i++) {
+        strcat(code, encode(str[i]));
+        strcat(code, " ");
+    }
+    printf("Encoded : %s\n", code);
     return 0;
 }
