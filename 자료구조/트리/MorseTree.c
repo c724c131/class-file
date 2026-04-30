@@ -98,6 +98,17 @@ char decode(TreeNode* root, char* code) {
     return p->alpha;
 }
 
+void decodeString(TreeNode* root, char* morse) {
+    char temp[200];
+    strcpy(temp, morse);
+
+    char* token = strtok(temp, " ");
+
+    while (token != NULL) {
+        printf("%c", decode(root, token));
+    }
+}
+
 int main(void) {
     TreeNode* root = makeMorseTree();
     preOrder(root);printf("\n");
